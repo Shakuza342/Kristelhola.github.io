@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="icon" href="img/flowers.png" type="image/x-icon">
+    <title>FLORES DE TULIPANES</title>
+    <style>
+        /* Estilos para los videos laterales */
+        .videos-laterales {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: 1000;
+            pointer-events: none;
+        }
+
+        .video-left, .video-right {
+            position: absolute;
+            top: 0;
+            width: 200px;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .video-left {
+            left: 10px;
+        }
+
+        .video-right {
+            right: 10px;
+        }
+
+        .video-item {
+            width: 180px;
+            height: 240px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.4);
+            pointer-events: auto;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            background: #000;
+        }
+
+        .video-item video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .video-item:hover {
+            transform: scale(1.08);
+            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.8);
+            border-color: #ffd700;
+        }
+
+        /* Animación de entrada para los videos */
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .video-item {
+            animation: slideInLeft 0.5s ease forwards;
+        }
+
+        .video-right .video-item {
+            animation: slideInRight 0.5s ease forwards;
+        }
+
+        /* Ajuste para pantallas más pequeñas */
+        @media screen and (max-width: 1400px) {
+            .video-left, .video-right {
+                width: 160px;
+            }
+            
+            .video-item {
+                width: 140px;
+                height: 200px;
+            }
+            
+            .flowers {
+                margin: 0 180px;
+            }
+        }
+
+        @media screen and (max-width: 1200px) {
+            .video-left, .video-right {
+                width: 120px;
+            }
+            
+            .video-item {
+                width: 100px;
+                height: 160px;
+            }
+            
+            .flowers {
+                margin: 0 140px;
+            }
+        }
+
+        @media screen and (max-width: 900px) {
+            .video-left, .video-right {
+                display: none;
+            }
+            
+            .flowers {
+                margin: 0;
+            }
+        }
+
+        .flowers {
+            position: relative;
+            transform: scale(0.9);
+            margin: 0 220px;
+            transition: margin 0.3s ease;
+        }
+
+        /* ===== CASCADA DE "ME ENCANTAS" - EDICIÓN LIGHT ===== */
+        .cascada-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 2000;
+            overflow: hidden;
+        }
+
+        .cascada-item {
+            position: absolute;
+            color: #ff99cc;
+            font-size: 26px;
+            font-weight: 500;
+            white-space: nowrap;
+            text-shadow: 0 0 15px rgba(255, 105, 180, 0.5);
+            animation: caerLigero 10s linear infinite;
+            opacity: 0;
+            letter-spacing: 1px;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .corazon {
+            color: #ff69b4;
+            font-size: 30px;
+            margin: 0 5px;
+            display: inline-block;
+            animation: latidoSuave 2s ease-in-out infinite;
+        }
+
+        @keyframes caerLigero {
+            0% {
+                transform: translateY(-15vh);
+                opacity: 0;
+            }
+            5% {
+                opacity: 0.7;
+            }
+            20% {
+                opacity: 0.9;
+            }
+            80% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(115vh);
+                opacity: 0;
+            }
+        }
+
+        @keyframes latidoSuave {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* SOLO 12 ELEMENTOS - Distribución equilibrada */
+        .cascada-item:nth-child(1) { left: 8%; animation-delay: 0s; }
+        .cascada-item:nth-child(2) { left: 22%; animation-delay: 2s; }
+        .cascada-item:nth-child(3) { left: 36%; animation-delay: 4s; }
+        .cascada-item:nth-child(4) { left: 50%; animation-delay: 1s; }
+        .cascada-item:nth-child(5) { left: 64%; animation-delay: 3s; }
+        .cascada-item:nth-child(6) { left: 78%; animation-delay: 5s; }
+        .cascada-item:nth-child(7) { left: 15%; animation-delay: 6s; }
+        .cascada-item:nth-child(8) { left: 30%; animation-delay: 7s; }
+        .cascada-item:nth-child(9) { left: 45%; animation-delay: 1.5s; }
+        .cascada-item:nth-child(10) { left: 60%; animation-delay: 8s; }
+        .cascada-item:nth-child(11) { left: 75%; animation-delay: 2.5s; }
+        .cascada-item:nth-child(12) { left: 90%; animation-delay: 9s; }
+
+        /* Velocidades ligeramente variables */
+        .cascada-item:nth-child(3n) { animation-duration: 9s; }
+        .cascada-item:nth-child(3n+1) { animation-duration: 11s; }
+        .cascada-item:nth-child(3n+2) { animation-duration: 10s; }
+
+        /* Colores suaves */
+        .cascada-item:nth-child(3n) { color: #ffb3c6; }
+        .cascada-item:nth-child(3n+1) { color: #ffc0cb; }
+        .cascada-item:nth-child(3n+2) { color: #ffa5b9; }
+
+        /* ===== ESTRELLITAS Y BRILLITOS - EDICIÓN LIGHT ===== */
+        .estrellitas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 1500;
+            overflow: hidden;
+        }
+
+        .estrella, .brillo {
+            position: absolute;
+            top: -20px;
+            color: #ffd700;
+            animation: caerLigeroBrillo linear infinite;
+            text-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
+            opacity: 0;
+        }
+
+        .estrella {
+            font-size: 18px;
+        }
+
+        .brillo {
+            width: 6px;
+            height: 6px;
+            background-color: #ffd700;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #ffd700;
+        }
+
+        @keyframes caerLigeroBrillo {
+            0% {
+                transform: translateY(-10vh) scale(0.8);
+                opacity: 0;
+            }
+            5% {
+                opacity: 0.6;
+            }
+            95% {
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateY(110vh) scale(0.7);
+                opacity: 0;
+            }
+        }
+
+        /* SOLO 12 ESTRELLAS - Distribución equilibrada */
+        .estrella:nth-child(1) { left: 5%; animation-duration: 12s; animation-delay: 0s; }
+        .estrella:nth-child(2) { left: 18%; animation-duration: 14s; animation-delay: 2s; }
+        .estrella:nth-child(3) { left: 32%; animation-duration: 13s; animation-delay: 4s; }
+        .estrella:nth-child(4) { left: 45%; animation-duration: 15s; animation-delay: 1s; }
+        .estrella:nth-child(5) { left: 58%; animation-duration: 11s; animation-delay: 3s; }
+        .estrella:nth-child(6) { left: 72%; animation-duration: 14s; animation-delay: 5s; }
+        .estrella:nth-child(7) { left: 85%; animation-duration: 12s; animation-delay: 6s; }
+        .estrella:nth-child(8) { left: 12%; animation-duration: 13s; animation-delay: 7s; }
+        .estrella:nth-child(9) { left: 25%; animation-duration: 11s; animation-delay: 1.5s; }
+        .estrella:nth-child(10) { left: 38%; animation-duration: 15s; animation-delay: 8s; }
+        .estrella:nth-child(11) { left: 52%; animation-duration: 14s; animation-delay: 2.5s; }
+        .estrella:nth-child(12) { left: 68%; animation-duration: 12s; animation-delay: 9s; }
+
+        /* SOLO 12 BRILLITOS - Distribución equilibrada */
+        .brillo:nth-child(13) { left: 8%; animation-duration: 10s; animation-delay: 0.5s; }
+        .brillo:nth-child(14) { left: 22%; animation-duration: 9s; animation-delay: 2.2s; }
+        .brillo:nth-child(15) { left: 35%; animation-duration: 11s; animation-delay: 4.2s; }
+        .brillo:nth-child(16) { left: 48%; animation-duration: 10s; animation-delay: 1.2s; }
+        .brillo:nth-child(17) { left: 62%; animation-duration: 9s; animation-delay: 3.2s; }
+        .brillo:nth-child(18) { left: 75%; animation-duration: 11s; animation-delay: 5.2s; }
+        .brillo:nth-child(19) { left: 88%; animation-duration: 10s; animation-delay: 6.2s; }
+        .brillo:nth-child(20) { left: 15%; animation-duration: 9s; animation-delay: 7.2s; }
+        .brillo:nth-child(21) { left: 28%; animation-duration: 11s; animation-delay: 1.8s; }
+        .brillo:nth-child(22) { left: 42%; animation-duration: 10s; animation-delay: 8.2s; }
+        .brillo:nth-child(23) { left: 55%; animation-duration: 9s; animation-delay: 2.8s; }
+        .brillo:nth-child(24) { left: 82%; animation-duration: 11s; animation-delay: 9.2s; }
+
+        /* Tipos de estrellas */
+        .estrella::before {
+            content: "✦";
+        }
+        .estrella:nth-child(4n)::before { content: "✧"; }
+        .estrella:nth-child(4n+1)::before { content: "⋆"; }
+        .estrella:nth-child(4n+2)::before { content: "☆"; }
+        .estrella:nth-child(4n+3)::before { content: "⍟"; }
+
+        /* Tamaños variables */
+        .estrella:nth-child(4n) { font-size: 16px; }
+        .estrella:nth-child(4n+1) { font-size: 20px; }
+        .estrella:nth-child(4n+2) { font-size: 14px; }
+        .estrella:nth-child(4n+3) { font-size: 18px; }
+
+        .brillo:nth-child(4n) { width: 4px; height: 4px; }
+        .brillo:nth-child(4n+1) { width: 7px; height: 7px; }
+        .brillo:nth-child(4n+2) { width: 5px; height: 5px; }
+        .brillo:nth-child(4n+3) { width: 6px; height: 6px; }
+
+        /* NUEVOS COLORES PARA LAS FLORES */
+        .flower__leafs::after {
+            background-color: #ff99cc !important;
+            filter: blur(8vmin) !important;
+        }
+
+        .flower__leaf {
+            background-color: #ff8da1 !important;
+            background-image: linear-gradient(to top, #ff69b4, #ffb6c1) !important;
+        }
+
+        .flower__leaf--1 { background-color: #ffb3c6 !important; }
+        .flower__leaf--2 { background-color: #ff80ab !important; }
+        .flower__leaf--3 { background-color: #b39ddb !important; }
+        .flower__leaf--4 { background-image: linear-gradient(to top, #ce93d8, #ff99cc) !important; }
+        .flower__white-circle { background-color: #fff0b5 !important; }
+        .flower__light { background-color: #ffb3c6 !important; }
+        .flower__light:nth-child(odd) { background-color: #ff99cc !important; }
+
+        .flower__line {
+            background-image: linear-gradient(
+                to left,
+                rgb(0, 0, 0, 0.2),
+                transparent,
+                rgba(255, 255, 255, 0.2)
+            ),
+            linear-gradient(to top, transparent 10%, #7cb342, #558b2f) !important;
+        }
+
+        .flower__line__leaf {
+            background-image: linear-gradient(
+                to top,
+                rgba(156, 39, 176, 0.3),
+                #9575cd
+            ) !important;
+        }
+
+        .flowers, .videos-laterales {
+            z-index: 1;
+        }
+    </style>
+</head>
+
+<body class="container">
+    <div class="night"></div>
+    
+    <!-- CONTENEDOR DE ESTRELLITAS Y BRILLITOS - EDICIÓN LIGHT -->
+    <div class="estrellitas-container">
+        <!-- 12 Estrellas -->
+        <div class="estrella"></div><div class="estrella"></div><div class="estrella"></div>
+        <div class="estrella"></div><div class="estrella"></div><div class="estrella"></div>
+        <div class="estrella"></div><div class="estrella"></div><div class="estrella"></div>
+        <div class="estrella"></div><div class="estrella"></div><div class="estrella"></div>
+        
+        <!-- 12 Brillitos -->
+        <div class="brillo"></div><div class="brillo"></div><div class="brillo"></div>
+        <div class="brillo"></div><div class="brillo"></div><div class="brillo"></div>
+        <div class="brillo"></div><div class="brillo"></div><div class="brillo"></div>
+        <div class="brillo"></div><div class="brillo"></div><div class="brillo"></div>
+    </div>
+    
+    <!-- CONTENEDOR DE "ME ENCANTAS" - EDICIÓN LIGHT -->
+    <div class="cascada-container">
+        <!-- 12 elementos - justo lo necesario -->
+        <div class="cascada-item"><span>ME ENCANTAS</span> <span class="corazon">♡</span></div>
+        <div class="cascada-item"><span>ME ENCANTAS</span> <span class="corazon">♡</span></div>
+        <div class="cascada-item"><span>ME ENCANTAS</span> <span class="corazon">♡</span></div>
+        <div class="cascada-item"><span>ME ENCANTAS</span> <span class="corazon">♡</span></div>
+        <div class="cascada-item"><span>ME ENCANTAS</span> <span class="corazon">♡</span></div>
+        <div class="cascada-item"><span>ME ENCANTAS</span> <span class="corazon">♡</span></div>
+        <div class="cascada-item"><span>ME ENCANTAS</span> <span class="corazon">♡</span></div>
+        <div class="cascada-item"><span>ME ENCANTAS</span> <span class="corazon">♡</span></div>
+        <div class="cascada-item"><span>ME ENCANTAS</span> <span class="corazon">♡</span></div>
+        <div class="cascada-item"><span>ME ENCANTAS</span> <span class="corazon">♡</span></div>
+        <div class="cascada-item"><span>ME ENCANTAS</span> <span class="corazon">♡</span></div>
+        <div class="cascada-item"><span>ME ENCANTAS</span> <span class="corazon">♡</span></div>
+    </div>
+    
+    <!-- Contenedor de videos izquierdo y derecho -->
+    <div class="videos-laterales">
+        <div class="video-left">
+            <div class="video-item"><video autoplay loop muted playsinline><source src="videos/2.mp4" type="video/mp4"></video></div>
+            <div class="video-item"><video autoplay loop muted playsinline><source src="videos/3.mp4" type="video/mp4"></video></div>
+            <div class="video-item"><video autoplay loop muted playsinline><source src="videos/4.mp4" type="video/mp4"></video></div>
+            <div class="video-item"><video autoplay loop muted playsinline><source src="videos/5.mp4" type="video/mp4"></video></div>
+        </div>
+        <div class="video-right">
+            <div class="video-item"><video autoplay loop muted playsinline><source src="videos/6.mp4" type="video/mp4"></video></div>
+            <div class="video-item"><video autoplay loop muted playsinline><source src="videos/7.mp4" type="video/mp4"></video></div>
+            <div class="video-item"><video autoplay loop muted playsinline><source src="videos/8.mp4" type="video/mp4"></video></div>
+            <div class="video-item"><video autoplay loop muted playsinline><source src="videos/1.mp4" type="video/mp4"></video></div>
+        </div>
+    </div>
+
+    <div class="flowers">
+        <!-- Todo el contenido de las flores permanece igual -->
+        <div class="flower flower--1">
+            <div class="flower__leafs flower__leafs--1">
+                <div class="flower__leaf flower__leaf--1"></div>
+                <div class="flower__leaf flower__leaf--2"></div>
+                <div class="flower__leaf flower__leaf--3"></div>
+                <div class="flower__leaf flower__leaf--4"></div>
+                <div class="flower__white-circle"></div>
+                <div class="flower__light flower__light--1"></div>
+                <div class="flower__light flower__light--2"></div>
+                <div class="flower__light flower__light--3"></div>
+                <div class="flower__light flower__light--4"></div>
+                <div class="flower__light flower__light--5"></div>
+                <div class="flower__light flower__light--6"></div>
+                <div class="flower__light flower__light--7"></div>
+                <div class="flower__light flower__light--8"></div>
+            </div>
+            <div class="flower__line">
+                <div class="flower__line__leaf flower__line__leaf--1"></div>
+                <div class="flower__line__leaf flower__line__leaf--2"></div>
+                <div class="flower__line__leaf flower__line__leaf--3"></div>
+                <div class="flower__line__leaf flower__line__leaf--4"></div>
+                <div class="flower__line__leaf flower__line__leaf--5"></div>
+                <div class="flower__line__leaf flower__line__leaf--6"></div>
+            </div>
+        </div>
+
+        <div class="flower flower--2">
+            <div class="flower__leafs flower__leafs--2">
+                <div class="flower__leaf flower__leaf--1"></div>
+                <div class="flower__leaf flower__leaf--2"></div>
+                <div class="flower__leaf flower__leaf--3"></div>
+                <div class="flower__leaf flower__leaf--4"></div>
+                <div class="flower__white-circle"></div>
+                <div class="flower__light flower__light--1"></div>
+                <div class="flower__light flower__light--2"></div>
+                <div class="flower__light flower__light--3"></div>
+                <div class="flower__light flower__light--4"></div>
+                <div class="flower__light flower__light--5"></div>
+                <div class="flower__light flower__light--6"></div>
+                <div class="flower__light flower__light--7"></div>
+                <div class="flower__light flower__light--8"></div>
+            </div>
+            <div class="flower__line">
+                <div class="flower__line__leaf flower__line__leaf--1"></div>
+                <div class="flower__line__leaf flower__line__leaf--2"></div>
+                <div class="flower__line__leaf flower__line__leaf--3"></div>
+                <div class="flower__line__leaf flower__line__leaf--4"></div>
+            </div>
+        </div>
+
+        <div class="flower flower--3">
+            <div class="flower__leafs flower__leafs--3">
+                <div class="flower__leaf flower__leaf--1"></div>
+                <div class="flower__leaf flower__leaf--2"></div>
+                <div class="flower__leaf flower__leaf--3"></div>
+                <div class="flower__leaf flower__leaf--4"></div>
+                <div class="flower__white-circle"></div>
+                <div class="flower__light flower__light--1"></div>
+                <div class="flower__light flower__light--2"></div>
+                <div class="flower__light flower__light--3"></div>
+                <div class="flower__light flower__light--4"></div>
+                <div class="flower__light flower__light--5"></div>
+                <div class="flower__light flower__light--6"></div>
+                <div class="flower__light flower__light--7"></div>
+                <div class="flower__light flower__light--8"></div>
+            </div>
+            <div class="flower__line">
+                <div class="flower__line__leaf flower__line__leaf--1"></div>
+                <div class="flower__line__leaf flower__line__leaf--2"></div>
+                <div class="flower__line__leaf flower__line__leaf--3"></div>
+                <div class="flower__line__leaf flower__line__leaf--4"></div>
+            </div>
+        </div>
+
+        <!-- Resto del contenido de las flores -->
+        <div class="grow-ans" style="--d:1.2s">
+            <div class="flower__g-long">
+                <div class="flower__g-long__top"></div>
+                <div class="flower__g-long__bottom"></div>
+            </div>
+        </div>
+
+        <!-- ... resto del contenido de las flores ... -->
+        
+    </div>
+
+    <script>
+        onload = () => {
+            document.body.classList.remove("container");
+        };
+    </script>
+</body>
+</html>
